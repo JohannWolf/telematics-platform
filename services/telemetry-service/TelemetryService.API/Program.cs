@@ -1,13 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using TelemetryService.Application.Telemetry.UseCases;
+using TelemetryService.Application.Vehicles.UseCases.CreateVehicle;
+using TelemetryService.Application.Vehicles.UseCases.GetVehicles;
 using TelemetryService.Domain.Alerts.Repositories;
 using TelemetryService.Domain.Alerts.Services;
 using TelemetryService.Domain.Rules.Repositories;
 using TelemetryService.Domain.Rules.Services;
 using TelemetryService.Domain.Telemetry.Repositories;
+using TelemetryService.Domain.Vehicles.Repositories;
 using TelemetryService.Infrastructure.Persistence;
 using TelemetryService.Infrastructure.Persistence.Repositories.Alerts;
 using TelemetryService.Infrastructure.Persistence.Repositories.Rules;
+using TelemetryService.Infrastructure.Persistence.Repositories.Vehicles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,10 @@ builder.Services.AddScoped<ITelemetryRepository, TelemetryRepository>();
 builder.Services.AddScoped<IRuleEvaluator, RuleEvaluator>();
 builder.Services.AddScoped<IAlertService, AlertService>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<ICreateVehicleUseCase, CreateVehicleUseCase>();
+
+builder.Services.AddScoped<IGetVehiclesUseCase, GetVehiclesUseCase>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 

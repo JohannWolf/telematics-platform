@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="External\" />
-    <Folder Include="Persistence\Repositories\Telemetry\" />
   </ItemGroup>
 
   <PropertyGroup>

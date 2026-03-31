@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TelemetryService.Domain.Telemetry.Entities;
+﻿using TelemetryService.Domain.Telemetry.Entities;
 
 namespace TelemetryService.Domain.Telemetry.Repositories
 {
@@ -10,5 +7,13 @@ namespace TelemetryService.Domain.Telemetry.Repositories
         Task SaveAsync(TelemetryRecord telemetry);
 
         Task<List<TelemetryRecord>> GetLatestByVehicleAsync(Guid vehicleId, int limit);
+
+        Task<(List<TelemetryRecord>, int totalCount)> GetPagedAsync(
+            Guid vehicleId,
+            DateTime? from,
+            DateTime? to,
+            int page,
+            int pageSize
+        );
     }
 }

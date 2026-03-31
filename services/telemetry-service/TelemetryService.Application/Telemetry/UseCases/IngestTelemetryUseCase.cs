@@ -20,7 +20,7 @@ namespace TelemetryService.Application.Telemetry.UseCases
             _alertService = alertService;
             _ruleRepository = ruleRepository;
         }
-        public async Task Execute(TelemetryDto dto)
+        public async Task ExecuteAsync(TelemetryDto dto)
         {
             var telemetry = new TelemetryRecord
             {

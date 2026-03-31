@@ -14,6 +14,7 @@ namespace TelemetryService.Domain.Vehicles.Entities
         public string EngineType { get; set; }
         public string EngineVersion { get; set; }
         public string Name { get; set; }
+        public string DeviceId { get; set; }
         public Tenant Tenant { get; set; }
         public ICollection<TelemetryRecord> TelemetryRecords { get; set; }
     }
