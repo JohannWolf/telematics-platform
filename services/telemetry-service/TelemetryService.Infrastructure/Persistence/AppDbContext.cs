@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TelemetryService.Domain.Alerts.Entities;
+using TelemetryService.Domain.Auth.Entities;
 using TelemetryService.Domain.Rules.Entities;
 using TelemetryService.Domain.Telemetry.Entities;
 using TelemetryService.Domain.Vehicles.Entities;
@@ -8,6 +9,8 @@ namespace TelemetryService.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<TelemetryRecord> TelemetryRecords { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Rule> Rules { get; set; }
