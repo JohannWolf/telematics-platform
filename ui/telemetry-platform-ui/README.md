@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# Telematics Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+UI for the telematics platform app
 
-Currently, two official plugins are available:
+## Frontend
+- Vite with React
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Architecture
+- Feature-Based Architecture 
 
-## React Compiler
+## RBAC + JWT Diagram
+```mermaid
+flowchart LR
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+User --> Login[Login Page]
 
-## Expanding the ESLint configuration
+Login --> Auth[JWT Authentication]
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Auth --> Admin[Admin Role]
+Auth --> Operator[Operator Role]
+Auth --> Viewer[Viewer Role]
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Admin --> AdminUI[Manage Rules / Vehicles]
+Operator --> OperatorUI[View Telemetry / Alerts]
+Viewer --> ViewerUI[Read Only Dashboard]
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+AdminUI --> API[Telemetry API]
+OperatorUI --> API
+ViewerUI --> API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+API --> RBAC[RBAC Authorization Middleware]
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+RBAC --> Services[Telemetry Services]
 ```
